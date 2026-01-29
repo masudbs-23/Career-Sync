@@ -38,6 +38,12 @@ export const API_ENDPOINTS = {
         list: '/blood',
         detail: (id: string) => `/blood/${id}`,
     },
+
+    // Institution endpoints
+    institutions: {
+        list: '/api/institutions',
+        detail: (id: string) => `/api/institutions/${id}`,
+    },
 } as const;
 
 export default API_ENDPOINTS;

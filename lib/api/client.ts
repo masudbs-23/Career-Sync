@@ -124,6 +124,7 @@ export const CACHE_TAGS = {
     medicines: 'medicines',
     doctors: 'doctors',
     nurses: 'nurses',
+    institutions: 'institutions',
     auth: 'auth',
 } as const;
 

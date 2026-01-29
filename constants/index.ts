@@ -4,7 +4,7 @@ export const SITE_CONFIG = {
 };
 
 export const NAVIGATION = [
-    { name: "Universities", href: "/universities", icon: "solar:backpack-linear" },
+    { name: "Universities", href: "/institutions", icon: "solar:backpack-linear" },
     { name: "Courses", href: "/courses", icon: "solar:notebook-linear" },
     { name: "Events", href: "/events", icon: "solar:calendar-mark-linear" },
     { name: "Consultants", href: "/consultants", icon: "solar:user-speak-linear" },

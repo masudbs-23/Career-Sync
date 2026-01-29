@@ -75,7 +75,7 @@ export default function Hero() {
 
                                 <div className="flex gap-4 pt-4">
                                     <Link
-                                        href="/universities"
+                                        href="/institutions"
                                         className="px-8 py-3 bg-black text-white font-bold uppercase tracking-wider hover:bg-gray-800 transition transform hover:scale-105"
                                     >
                                         Explore Universities
