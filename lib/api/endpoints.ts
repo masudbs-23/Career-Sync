@@ -12,33 +12,6 @@ export const API_ENDPOINTS = {
         profile: '/api/auth/profile',
     },
 
-    // Medicine endpoints
-    medicines: {
-        list: '/medicines',
-        detail: (id: string) => `/medicines/${id}`,
-        search: '/medicines/search',
-    },
-
-    // Doctor endpoints
-    doctors: {
-        list: '/doctors',
-        detail: (id: string) => `/doctors/${id}`,
-        reviews: (id: string) => `/doctors/${id}/reviews`,
-    },
-
-    // Nurse endpoints
-    nurses: {
-        list: '/nurses',
-        detail: (id: string) => `/nurses/${id}`,
-        reviews: (id: string) => `/nurses/${id}/reviews`,
-    },
-
-    // Blood donation endpoints
-    blood: {
-        list: '/blood',
-        detail: (id: string) => `/blood/${id}`,
-    },
-
     // Institution endpoints
     institutions: {
         list: '/api/institutions',

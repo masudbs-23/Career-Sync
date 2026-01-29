@@ -10,7 +10,7 @@ const items = [
         id: "university",
         title: "Top Universities",
         subtitle: "Global Recognition",
-        image: "https://images.unsplash.com/photo-1541339907198-e08756ebafe1?q=80&w=2070&auto=format&fit=crop",
+        image: "/images/hero/university.jpg",
         color: "bg-gray-100",
     },
     {

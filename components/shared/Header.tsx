@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Icon } from "@iconify/react";
 import { useAuth } from "@/context/AuthContext";
-import { useCart } from "@/context/CartContext";
 import { useState, useEffect } from "react";
 import Button from "../Button";
 

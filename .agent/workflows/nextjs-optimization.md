@@ -18,9 +18,7 @@ description: Next.js Performance & Best Practices Optimization Plan
 ### Phase 1: API Layer Refactoring
 
 #### 1.1 Create API Route Handlers
-- Create `/app/api/medicines/route.ts` for medicines proxy
-- Create `/app/api/doctors/route.ts` for doctors proxy
-- Create `/app/api/nurses/route.ts` for nurses proxy
+- Create `/app/api/institutions/route.ts` for institutions proxy
 - Benefits: Better security, caching control, error handling
 
 #### 1.2 Replace Axios with Fetch
@@ -41,14 +39,11 @@ description: Next.js Performance & Best Practices Optimization Plan
 
 #### 2.1 Server Components (Default)
 Convert these to server components:
-- `app/medicine/page.tsx` → Server Component with search params
-- `app/doctors/page.tsx` → Server Component
-- `app/nurses/page.tsx` → Server Component
+- `app/institutions/page.tsx` → Server Component with search params
 
 #### 2.2 Client Components (Only when needed)
 Keep as client components:
 - Search/Filter components
-- Cart/Wishlist interactions
 - Form submissions
 - Interactive UI elements
 
@@ -62,23 +57,23 @@ Keep as client components:
 
 #### 3.1 Server-Side Data Fetching
 ```typescript
-// app/medicine/page.tsx
-export default async function MedicinePage({ searchParams }) {
-  const medicines = await getMedicines(searchParams);
-  return <MedicineList medicines={medicines} />;
+// app/institutions/page.tsx
+export default async function InstitutionsPage({ searchParams }) {
+  const institutions = await getInstitutions(searchParams);
+  return <InstitutionsList institutions={institutions} />;
 }
 ```
 
 #### 3.2 Parallel Data Fetching
 ```typescript
 // Already good in app/page.tsx
-const [nurses, doctors, medicines] = await Promise.all([...]);
+const [institutions] = await Promise.all([...]);
 ```
 
 #### 3.3 Streaming with Suspense
 ```typescript
 <Suspense fallback={<Skeleton />}>
-  <MedicineList />
+  <InstitutionsList />
 </Suspense>
 ```
 

@@ -166,8 +166,8 @@ export default function ProfilePage() {
                             <Icon icon="solar:document-medical-linear" className="text-6xl text-gray-300 mx-auto mb-4" />
                             <h3 className="font-bold text-lg mb-2">No Prescriptions Yet</h3>
                             <p className="text-gray-500 text-sm mb-6">Consult with a doctor to get a prescription.</p>
-                            <Link href="/doctors">
-                                <Button>Find a Doctor</Button>
+                            <Link href="/institutions">
+                                <Button>Find Institutions</Button>
                             </Link>
                         </div>
                     </div>
