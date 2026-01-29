@@ -8,6 +8,11 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5
 export interface FetchOptions extends RequestInit {
     revalidate?: number | false;
     tags?: string[];
+    cache?: RequestCache;
+    next?: {
+        revalidate?: number | false;
+        tags?: string[];
+    };
 }
 
 export class APIError extends Error {
@@ -28,7 +33,7 @@ async function fetchWithAuth<T>(
     endpoint: string,
     options: FetchOptions = {}
 ): Promise<T> {
-    const { revalidate, tags, ...fetchOptions } = options;
+    const { revalidate, tags, cache, next: nextOptions, ...fetchOptions } = options;
 
     // Build headers
     const headers = new Headers(fetchOptions.headers);
@@ -42,13 +47,13 @@ async function fetchWithAuth<T>(
         }
     }
 
-    // Build Next.js cache options
-    const nextOptions: { revalidate?: number | false; tags?: string[] } = {};
+    // Build Next.js cache options with priority to explicit next object
+    const cacheOptions: { revalidate?: number | false; tags?: string[] } = {};
     if (revalidate !== undefined) {
-        nextOptions.revalidate = revalidate;
+        cacheOptions.revalidate = revalidate;
     }
     if (tags) {
-        nextOptions.tags = tags;
+        cacheOptions.tags = tags;
     }
 
     const url = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}${endpoint}`;
@@ -57,7 +62,8 @@ async function fetchWithAuth<T>(
         const response = await fetch(url, {
             ...fetchOptions,
             headers,
-            next: Object.keys(nextOptions).length > 0 ? nextOptions : undefined,
+            cache: cache || (typeof window !== 'undefined' ? 'no-store' : 'default'),
+            next: nextOptions || (Object.keys(cacheOptions).length > 0 ? cacheOptions : undefined),
         });
 
         // Handle non-OK responses
@@ -118,17 +124,6 @@ export const apiClient = {
 };
 
 /**
- * Cache tags for revalidation
- */
-export const CACHE_TAGS = {
-    medicines: 'medicines',
-    doctors: 'doctors',
-    nurses: 'nurses',
-    institutions: 'institutions',
-    auth: 'auth',
-} as const;
-
-/**
  * Revalidation times (in seconds)
  */
 export const REVALIDATE = {
@@ -137,6 +132,43 @@ export const REVALIDATE = {
     DAILY: 86400,
     WEEKLY: 604800,
     DYNAMIC: 0, // Always fresh
+} as const;
+
+/**
+ * Cache tags for revalidation
+ */
+export const CACHE_TAGS = {
+    institutions: 'institutions',
+    auth: 'auth',
+    user: 'user',
+    search: 'search',
+    static: 'static',
+} as const;
+
+/**
+ * Cache strategies for different use cases
+ */
+export const CACHE_STRATEGIES = {
+    // Static data that rarely changes
+    STATIC: {
+        revalidate: REVALIDATE.WEEKLY,
+        tags: [CACHE_TAGS.static] as string[],
+    },
+    // User-specific data
+    USER_DATA: {
+        revalidate: REVALIDATE.HOURLY,
+        tags: [CACHE_TAGS.user] as string[],
+    },
+    // Search results
+    SEARCH: {
+        revalidate: REVALIDATE.DYNAMIC,
+        tags: [CACHE_TAGS.search] as string[],
+    },
+    // Real-time data
+    REALTIME: {
+        revalidate: REVALIDATE.DYNAMIC,
+        tags: [] as string[],
+    },
 } as const;
 
 export default apiClient;

@@ -1,4 +1,4 @@
-import { apiClient, CACHE_TAGS, REVALIDATE } from "@/lib/api/client";
+import { apiClient, CACHE_STRATEGIES } from "@/lib/api/client";
 import { API_ENDPOINTS } from "@/lib/api/endpoints";
 import { Institution } from "@/types/institution";
 
@@ -48,10 +48,7 @@ export const InstitutionService = {
 
             const response = await apiClient.get<InstitutionsResponse>(
                 `${API_ENDPOINTS.institutions.list}?${queryParams.toString()}`,
-                {
-                    revalidate: REVALIDATE.HOURLY, // Revalidate every hour
-                    tags: [CACHE_TAGS.institutions],
-                }
+                CACHE_STRATEGIES.USER_DATA
             );
 
             return Array.isArray(response.data) ? response.data : [];
@@ -70,8 +67,8 @@ export const InstitutionService = {
             const response = await apiClient.get<InstitutionResponse>(
                 API_ENDPOINTS.institutions.detail(id),
                 {
-                    revalidate: REVALIDATE.HOURLY,
-                    tags: [CACHE_TAGS.institutions, `institution-${id}`],
+                    ...CACHE_STRATEGIES.USER_DATA,
+                    tags: [...CACHE_STRATEGIES.USER_DATA.tags, `institution-${id}`],
                 }
             );
 
@@ -83,13 +80,13 @@ export const InstitutionService = {
     },
 
     /**
-     * Get featured institutions (first 6)
+     * Get featured institutions (first 4 for home page)
      * Uses ISR with 1 hour revalidation
      */
     getFeatured: async (): Promise<Institution[]> => {
         try {
-            const institutions = await InstitutionService.getAll({ limit: 6 });
-            return institutions.slice(0, 6);
+            const institutions = await InstitutionService.getAll({ limit: 4 });
+            return institutions.slice(0, 4);
         } catch (error) {
             console.error("Error fetching featured institutions:", error);
             return [];
@@ -104,9 +101,7 @@ export const InstitutionService = {
         try {
             const response = await apiClient.get<InstitutionsResponse>(
                 `${API_ENDPOINTS.institutions.list}?name=${encodeURIComponent(query)}`,
-                {
-                    cache: 'no-store', // Always fresh for search
-                }
+                CACHE_STRATEGIES.SEARCH
             );
 
             return Array.isArray(response.data) ? response.data : [];
