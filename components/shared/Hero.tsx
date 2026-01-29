@@ -17,14 +17,14 @@ const items = [
         id: "institution",
         title: "World-Class Institutions",
         subtitle: "Academic Excellence",
-        image: "https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2086&auto=format&fit=crop",
+        image: "/images/hero/event.jpg",
         color: "bg-gray-100",
     },
     {
         id: "events",
         title: "Global Education Events",
         subtitle: "Connect & Learn",
-        image: "https://images.unsplash.com/photo-1540575861501-7ad060e39fe1?q=80&w=2070&auto=format&fit=crop",
+        image: "/images/hero/consultancy.jpg",
         color: "bg-gray-100",
     },
 ];
