@@ -21,7 +21,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
     const baseStyles = "inline-flex items-center justify-center  px-6 py-3 text-sm font-medium transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:pointer-events-none";
 
     const variants = {
-        primary: "bg-black text-white hover:bg-zinc-800",
+        primary: "bg-gray-600 text-white hover:bg-gray-700",
         outline: "border border-black text-black hover:bg-zinc-50",
         ghost: "text-black hover:bg-zinc-100"
     };

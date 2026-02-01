@@ -76,6 +76,11 @@ export default function InstitutionDetailsContent({ institution }: InstitutionDe
                                             {institution.website}
                                         </a>
                                     </div>
+                                    <div className="pt-4">
+                                        <button className="px-8 py-3 bg-[#0BF455] text-white font-bold rounded-full hover:bg-[#0BF455]/90 transition-colors shadow-lg">
+                                            Apply Now
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

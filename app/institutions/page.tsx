@@ -29,6 +29,7 @@ export default async function InstitutionsPage() {
                     <InstitutionList
                         institutions={institutions}
                         showView={true}
+                        showSearch={true}
                     />
                 </Suspense>
             </div>

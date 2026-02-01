@@ -15,6 +15,7 @@ interface InstitutionListProps {
     subtitle?: string;
     viewAllLink?: string;
     loading?: boolean;
+    showSearch?: boolean;
 }
 
 export default function InstitutionList({
@@ -23,7 +24,8 @@ export default function InstitutionList({
     title,
     subtitle,
     viewAllLink,
-    loading = false
+    loading = false,
+    showSearch = false
 }: InstitutionListProps) {
     const [columns, setColumns] = useState(4);
 
@@ -55,30 +57,39 @@ export default function InstitutionList({
 
     const content = (
         <div id="institutions" className="w-full">
-            {(showView || title) && (
-                <div className="flex items-center justify-between w-full  pb-4 mb-8">
+            {(showView || title || showSearch) && (
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between w-full pb-4 mb-8 gap-4">
                     <div>
                         <p className="text-gray-400 text-sm uppercase tracking-widest font-bold">{subtitle || "Top Rated"}</p>
                         <h2 className="text-2xl md:text-4xl font-bold text-black tracking-tight">{title || `${institutions.length} Institutions Available`}</h2>
                     </div>
-                    {(showView || viewAllLink) && (
-                        <div className="flex items-center gap-6">
-                            {showView && (
-                                <div className="hidden sm:flex items-center gap-4">
-                                    <span className="text-sm font-semibold text-gray-400 uppercase tracking-wider">GridView:</span>
-                                    <GridSwitcher currentColumns={columns} onChange={setColumns} />
-                                </div>
-                            )}
-                            {viewAllLink && (
-                                <Link
-                                    href={viewAllLink}
-                                    className="hidden md:flex items-center gap-2 text-black font-semibold hover:text-gray-600 transition-colors group"
-                                >
-                                    View All <Icon icon="solar:arrow-right-linear" className="group-hover:translate-x-1 transition-transform" />
-                                </Link>
-                            )}
-                        </div>
-                    )}
+                    <div className="flex flex-col sm:flex-row items-center gap-4">
+                        {showSearch && (
+                            <input
+                                type="text"
+                                placeholder="search institute by name"
+                                className="border border-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:border-gray-500 w-full sm:w-64"
+                            />
+                        )}
+                        {(showView || viewAllLink) && (
+                            <div className="flex items-center gap-6">
+                                {showView && (
+                                    <div className="hidden sm:flex items-center gap-4">
+                                        <span className="text-sm font-semibold text-gray-400 uppercase tracking-wider">GridView:</span>
+                                        <GridSwitcher currentColumns={columns} onChange={setColumns} />
+                                    </div>
+                                )}
+                                {viewAllLink && (
+                                    <Link
+                                        href={viewAllLink}
+                                        className="hidden md:flex items-center gap-2 text-black font-semibold hover:text-gray-600 transition-colors group"
+                                    >
+                                        View All <Icon icon="solar:arrow-right-linear" className="group-hover:translate-x-1 transition-transform" />
+                                    </Link>
+                                )}
+                            </div>
+                        )}
+                    </div>
                 </div>
             )}
 
@@ -124,7 +135,7 @@ export default function InstitutionList({
                                     <span className={`${columns === 1 ? 'text-xl' : 'text-lg'} font-bold text-black`}>{inst.programs.length} Available</span>
                                 </div>
                                 <Link href={`/institutions/${inst._id}`}>
-                                    <button className={`${columns === 1 ? 'px-8 py-3' : 'px-6 py-2'} rounded-full bg-black text-white hover:bg-gray-800 transition-colors flex items-center gap-2 text-sm font-bold shadow-lg shadow-black/10`}>
+                                    <button className={`${columns === 1 ? 'px-8 py-3' : 'px-6 py-2'} rounded-full bg-gray-600 text-white hover:bg-gray-700 transition-colors flex items-center gap-2 text-sm font-bold shadow-lg shadow-black/10`}>
                                         <Icon icon="solar:eye-linear" className="text-lg" /> Details
                                     </button>
                                 </Link>

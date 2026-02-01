@@ -15,7 +15,7 @@ export default function ExploreDestinations() {
                     </p>
                 </div>
                 <Link href="/institutions">
-                    <button className="px-8 py-3 bg-black text-white rounded-full font-bold hover:bg-gray-800 transition shadow-lg">
+                    <button className="px-8 py-3 bg-[#0BF455] text-white rounded-full font-bold hover:bg-[#0BF455]/90 transition shadow-lg">
                         Explore Countries
                     </button>
                 </Link>

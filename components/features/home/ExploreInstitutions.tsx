@@ -1,9 +1,9 @@
 "use client";
 
-import { InstitutionService } from "@/lib/institution/actions";
 import InstitutionList from "@/components/features/institution/InstitutionList";
-import { useState, useEffect } from "react";
+import { InstitutionService } from "@/lib/institution/actions";
 import { Institution } from "@/types/institution";
+import { useEffect, useState } from "react";
 
 export default function ExploreInstitutions() {
     const [institutions, setInstitutions] = useState<Institution[]>([]);
@@ -26,7 +26,7 @@ export default function ExploreInstitutions() {
 
     return (
         <section className="py-24 bg-white">
-            <div className="container mx-auto px-4 md:px-6">
+            <div className="container mx-auto ">
                 <InstitutionList
                     institutions={institutions}
                     loading={loading}

@@ -76,13 +76,13 @@ export default function Hero() {
                                 <div className="flex gap-4 pt-4">
                                     <Link
                                         href="/institutions"
-                                        className="px-8 py-3 bg-black text-white font-bold uppercase tracking-wider hover:bg-gray-800 transition transform hover:scale-105"
+                                        className="px-8 py-3 bg-[#0BF455] text-white font-bold uppercase tracking-wider hover:bg-[#0BF455]/90 transition transform hover:scale-105"
                                     >
                                         Explore Universities
                                     </Link>
                                     <Link
                                         href="/contact"
-                                        className="px-8 py-3 bg-white border border-black text-black font-bold uppercase tracking-wider hover:bg-gray-50 transition"
+                                        className="px-8 py-3 bg-gray-600 text-white font-bold uppercase tracking-wider hover:bg-gray-700 transition"
                                     >
                                         Free Consultation
                                     </Link>
