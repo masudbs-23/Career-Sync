@@ -6,6 +6,7 @@ import { Icon } from "@iconify/react";
 import { useAuth } from "@/context/AuthContext";
 import { useState, useEffect } from "react";
 import Button from "../Button";
+import MobileDrawer from "./MobileDrawer";
 
 import { NAVIGATION } from "@/constants";
 
@@ -28,9 +29,9 @@ export default function Header() {
                 }`}
         >
             <div className="container mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
-                {/* Logo */}
+                {/* Logo - Always visible */}
                 <Link href="/" className="flex items-center gap-2 group">
-                    <span className="text-2xl font-bold text-black tracking-tight">
+                    <span className="text-xl md:text-2xl font-bold text-black tracking-tight">
                         Career Sync
                     </span>
                 </Link>
@@ -51,7 +52,7 @@ export default function Header() {
                 {/* Actions */}
                 <div className="flex items-center gap-5">
                     {isAuthenticated && user ? (
-                        <div className="flex items-center gap-3 pl-4 ml-2">
+                        <div className="hidden md:flex items-center gap-3 pl-4 ml-2">
                             <Link
                                 href="/profile"
                                 className="flex items-center gap-2 hover:opacity-70 transition-opacity cursor-pointer group"
@@ -72,9 +73,11 @@ export default function Header() {
                             </Link>
                         </div>
                     ) : (
-                        <Link href="/auth/login">
-                            <Button>Login</Button>
-                        </Link>
+                        <div className="hidden md:block">
+                            <Link href="/auth/login">
+                                <Button>Login</Button>
+                            </Link>
+                        </div>
                     )}
 
                     {/* Mobile Menu Button */}
@@ -84,27 +87,14 @@ export default function Header() {
                     >
                         <Icon icon={isMenuOpen ? "solar:close-circle-linear" : "solar:hamburger-menu-linear"} className="text-2xl text-black" />
                     </button>
-
                 </div>
             </div>
 
-            {/* Mobile Menu */}
-            {isMenuOpen && (
-                <div className="md:hidden border-t border-gray-100 bg-white p-6 absolute w-full shadow-none h-screen z-50">
-                    <nav className="flex flex-col gap-6">
-                        {NAVIGATION.map((item) => (
-                            <Link
-                                key={item.name}
-                                href={item.href}
-                                className="text-xl font-bold text-black border-b border-gray-100 pb-2"
-                                onClick={() => setIsMenuOpen(false)}
-                            >
-                                {item.name}
-                            </Link>
-                        ))}
-                    </nav>
-                </div>
-            )}
+            {/* Mobile Drawer Menu */}
+            <MobileDrawer 
+                isOpen={isMenuOpen} 
+                onClose={() => setIsMenuOpen(false)} 
+            />
         </header>
     );
 }

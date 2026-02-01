@@ -25,7 +25,7 @@ export default function ExploreInstitutions() {
     }, []);
 
     return (
-        <section className="py-24 bg-white">
+        <section className=" bg-white">
             <div className="container mx-auto ">
                 <InstitutionList
                     institutions={institutions}

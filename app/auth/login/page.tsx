@@ -27,20 +27,29 @@ export default function LoginPage() {
 
     const onSubmit = async (data: LoginFormData) => {
         setError("");
+        console.log("Login attempt with data:", data);
+        
         try {
+            console.log("Calling AuthService.login...");
             const response = await AuthService.login({
                 email: data.email,
                 password: data.password,
             });
+            
+            console.log("Login response:", response);
 
-            if (response.success) {
+            // If we get a response with token and user, login is successful
+            if (response.token && response.user) {
+                console.log("Login successful, storing token and user");
                 login(response.token, response.user);
                 router.push("/");
             } else {
+                console.log("Login failed: missing token or user");
                 setError("Invalid email or password");
             }
         } catch (err: any) {
-            const errorMessage = err.response?.data?.message || "Login failed. Please try again.";
+            console.error("Login error:", err);
+            const errorMessage = err.response?.data?.message || err.message || "Login failed. Please try again.";
             setError(errorMessage);
         }
     };
