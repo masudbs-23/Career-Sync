@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, LayoutGroup, AnimatePresence } from "framer-motion";
+import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const items = [
     {
@@ -76,7 +76,7 @@ export default function Hero() {
                                 <div className="flex gap-4 pt-4">
                                     <Link
                                         href="/institutions"
-                                        className="px-8 py-3 bg-[#0BF455] text-white font-bold uppercase tracking-wider hover:bg-[#0BF455]/90 transition transform hover:scale-105"
+                                        className="px-8 py-3 bg-black text-white font-bold uppercase tracking-wider  transition transform hover:scale-105"
                                     >
                                         Explore Universities
                                     </Link>

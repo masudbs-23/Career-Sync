@@ -20,15 +20,8 @@ export default function InstitutionDetailsContent({ institution }: InstitutionDe
     ];
 
     return (
-        <div className="min-h-screen  pb-20">
-            {/* Header / Breadcrumb */}
-            <div className="bg-white">
-                <div className="container mx-auto px-4 py-4">
-                    <BackButton />
-                </div>
-            </div>
-
-            <main className="container mx-auto px-4 py-8">
+        <div className="min-h-screen pb-20">
+            <main className="w-full lg:w-9/12 lg:mx-auto px-4 py-8">
                 {/* Top Section: Image and Info */}
                 <div className="bg-white   overflow-hidden mb-8">
                     {/* Hero Image */}

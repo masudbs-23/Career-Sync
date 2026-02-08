@@ -1,15 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useAuth } from "@/context/AuthContext";
 import Button from "@/components/Button";
 import { AuthService } from "@/lib/auth/actions";
 import { signupSchema, type SignupFormData } from "@/lib/auth/schemas";
-import Link from "next/link";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function SignupPage() {
     const [error, setError] = useState("");
@@ -153,17 +152,17 @@ export default function SignupPage() {
             </div>
 
             {/* Right Side - Image */}
-            <div className="hidden lg:block w-1/2 relative bg-gray-100">
-                <div className="absolute inset-0 bg-black/20 z-10" />
+            <div className="hidden lg:block w-1/2 relative ">
+                <div className="absolute inset-0  z-10" />
                 <Image
-                    src="https://images.unsplash.com/photo-1523050853051-be991f85a6ad?q=80&w=2070&auto=format&fit=crop"
+                    src="/images/auth.png"
                     alt="Abroad Education"
                     fill
                     className="object-cover"
                     priority
                 />
-                <div className="absolute bottom-12 left-12 right-12 z-20 text-white">
-                    <blockquote className="text-4xl font-bold leading-tight mb-4 text-white drop-shadow-lg">
+                <div className="absolute bottom-12 left-12 right-12 z-20 text-black">
+                    <blockquote className="text-4xl font-bold leading-tight mb-4 text-black drop-shadow-lg">
                         "Education is the passport to the future, for tomorrow belongs to those who prepare for it today."
                     </blockquote>
                     <cite className="text-xl opacity-90 not-italic font-medium">— Malcolm X</cite>

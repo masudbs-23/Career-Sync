@@ -1,15 +1,15 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useAuth } from "@/context/AuthContext";
 import Button from "@/components/Button";
+import { useAuth } from "@/context/AuthContext";
 import { AuthService } from "@/lib/auth/actions";
 import { loginSchema, type LoginFormData } from "@/lib/auth/schemas";
-import Link from "next/link";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function LoginPage() {
     const [error, setError] = useState("");
@@ -28,14 +28,14 @@ export default function LoginPage() {
     const onSubmit = async (data: LoginFormData) => {
         setError("");
         console.log("Login attempt with data:", data);
-        
+
         try {
             console.log("Calling AuthService.login...");
             const response = await AuthService.login({
                 email: data.email,
                 password: data.password,
             });
-            
+
             console.log("Login response:", response);
 
             // If we get a response with token and user, login is successful
@@ -49,7 +49,16 @@ export default function LoginPage() {
             }
         } catch (err: any) {
             console.error("Login error:", err);
-            const errorMessage = err.response?.data?.message || err.message || "Login failed. Please try again.";
+            let errorMessage = "Login failed. Please try again.";
+
+            if (err instanceof Error) {
+                if (err.name === 'APIError') {
+                    errorMessage = err.message;
+                } else {
+                    errorMessage = err.message;
+                }
+            }
+
             setError(errorMessage);
         }
     };
@@ -155,17 +164,17 @@ export default function LoginPage() {
             </div>
 
             {/* Right Side - Image */}
-            <div className="hidden lg:block w-1/2 relative bg-gray-100">
-                <div className="absolute inset-0 bg-black/20 z-10" />
+            <div className="hidden lg:block w-1/2 relative ">
+                <div className="absolute inset-0  z-10" />
                 <Image
-                    src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=2098&auto=format&fit=crop"
+                    src="/images/auth.png"
                     alt="Study Abroad"
                     fill
                     className="object-cover"
                     priority
                 />
-                <div className="absolute bottom-12 left-12 right-12 z-20 text-white">
-                    <blockquote className="text-4xl font-bold leading-tight mb-4 text-white drop-shadow-lg">
+                <div className="absolute bottom-12 left-12 right-12 z-20 text-black">
+                    <blockquote className="text-4xl font-bold leading-tight mb-4 text-black drop-shadow-lg">
                         "The beautiful thing about learning is that no one can take it away from you."
                     </blockquote>
                     <cite className="text-xl opacity-90 not-italic font-medium">— B.B. King</cite>
